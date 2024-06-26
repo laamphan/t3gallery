@@ -2,6 +2,7 @@ import "@uploadthing/react/styles.css";
 import "~/styles/globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
+// @ts-expect-error
 import { GeistSans } from "geist/font/sans";
 import { NextSSRPlugin } from "node_modules/@uploadthing/react/next-ssr-plugin/index.cjs";
 import { extractRouterConfig } from "uploadthing/server";
@@ -35,8 +36,10 @@ export default function RootLayout({
         />
 
         <body>
-          <TopNav />
-          {children}
+          <div className="grid-rows-[auto, 1fr] grid h-screen">
+            <TopNav />
+            <main className="overflow-y-scroll">{children}</main>
+          </div>
           {modal}
           <div id="modal-root" />
         </body>
