@@ -41,8 +41,8 @@ export default function RootLayout({
             <div className="grid-rows-[auto, 1fr] grid h-screen">
               <TopNav />
               <main className="overflow-y-scroll">{children}</main>
+              {modal}
             </div>
-            {modal}
             <div id="modal-root" />
             <Toaster />
           </body>

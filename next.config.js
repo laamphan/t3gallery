@@ -37,11 +37,9 @@ const config = withSentryConfig(coreConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
+  silent: true,
   org: "oren-pf",
   project: "t3-gallery",
-
-  // Only print logs for uploading source maps in CI
-  silent: !process.env.CI,
 
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/

@@ -27,10 +27,10 @@ export const images = createTable(
 
     userId: varchar("user_id", { length: 256 }).notNull(),
 
-    createdAt: timestamp("created_at", { withTimezone: true })
+    createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt", { withTimezone: true }),
+    updatedAt: timestamp("updatedAt"),
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
