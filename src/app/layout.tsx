@@ -6,6 +6,7 @@ import { GeistSans } from "geist/font/sans";
 import { NextSSRPlugin } from "node_modules/@uploadthing/react/next-ssr-plugin/index.cjs";
 import { extractRouterConfig } from "uploadthing/server";
 import { Toaster } from "~/components/ui/sonner";
+import { CSPostHogProvider } from "./_analytics/provider";
 import { TopNav } from "./_components/topnav";
 import { ourFileRouter } from "./api/uploadthing/core";
 
@@ -24,27 +25,29 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${GeistSans.variable} flex-col gap-4`}>
-        <NextSSRPlugin
-          /**
-           * The `extractRouterConfig` will extract **only** the route configs
-           * from the router to prevent additional information from being
-           * leaked to the client. The data passed to the client is the same
-           * as if you were to fetch `/api/uploadthing` directly.
-           */
-          routerConfig={extractRouterConfig(ourFileRouter)}
-        />
+      <CSPostHogProvider>
+        <html lang="en" className={`${GeistSans.variable} flex-col gap-4`}>
+          <NextSSRPlugin
+            /**
+             * The `extractRouterConfig` will extract **only** the route configs
+             * from the router to prevent additional information from being
+             * leaked to the client. The data passed to the client is the same
+             * as if you were to fetch `/api/uploadthing` directly.
+             */
+            routerConfig={extractRouterConfig(ourFileRouter)}
+          />
 
-        <body className="dark">
-          <div className="grid-rows-[auto, 1fr] grid h-screen">
-            <TopNav />
-            <main className="overflow-y-scroll">{children}</main>
-          </div>
-          {modal}
-          <div id="modal-root" />
-          <Toaster />
-        </body>
-      </html>
+          <body className="dark">
+            <div className="grid-rows-[auto, 1fr] grid h-screen">
+              <TopNav />
+              <main className="overflow-y-scroll">{children}</main>
+            </div>
+            {modal}
+            <div id="modal-root" />
+            <Toaster />
+          </body>
+        </html>
+      </CSPostHogProvider>
     </ClerkProvider>
   );
 }
